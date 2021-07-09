@@ -87,14 +87,10 @@ class FMCropMenuView: UIView {
         
         collectionView.register(FMCropCell.classForCoder(), forCellWithReuseIdentifier: FMCropCell.reussId)
         
-        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0,left: 14,bottom: 0,right: 14)
-    
-        self.backgroundColor = .clear
-        collectionView.backgroundColor = .clear
     }
     
     func insert(toView parentView: UIView) {
@@ -130,12 +126,12 @@ extension FMCropMenuView: UICollectionViewDataSource {
         if indexPath.section == 0 {
             // menu items
             cell.name.text = menuItems[indexPath.row].name(from: config.strings)
-            cell.imageView.image = menuItems[indexPath.row].icon()
+            cell.imageView.image = menuItems[indexPath.row].icon()?.withTintColor(.gray)
         } else if indexPath.section == 1 {
             // crop items
             let cropItem = cropItems[indexPath.row]
             cell.name.text = cropItem.name(strings: config.strings)
-            cell.imageView.image = cropItem.icon()
+            cell.imageView.image = cropItem.icon().withTintColor(.gray)
             
             if selectedCrop?.identifier() == cropItem.identifier() {
                 cell.setSelected()

@@ -29,7 +29,7 @@ class FMCropCell: UICollectionViewCell {
         name.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         name.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
         
-        name.text = "Crop"
+        name.text = NSLocalizedString("Crop", comment: "")
         name.textColor = kGrayColor
         name.font = UIFont.systemFont(ofSize: 8)
     }
@@ -39,11 +39,8 @@ class FMCropCell: UICollectionViewCell {
     }
     
     public func setSelected() {
-        let tintedImage = imageView.image?.withRenderingMode(.alwaysTemplate)
-        imageView.image = tintedImage
-        imageView.tintColor = kRedColor
-        
-        name.textColor = kRedColor
+        imageView.image = imageView.image?.withTintColor(.white)
+        name.textColor = .white
     }
     
     public func setDeselected() {

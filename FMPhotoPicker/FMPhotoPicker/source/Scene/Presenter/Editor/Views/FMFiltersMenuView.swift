@@ -49,7 +49,6 @@ class FMFiltersMenuView: UIView {
         
         collectionView.register(FMFilterCell.classForCoder(), forCellWithReuseIdentifier: FMFilterCell.reussId)
         
-        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
@@ -57,9 +56,6 @@ class FMFiltersMenuView: UIView {
         
         collectionView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.old, context: nil)
         isObservingCollectionView = true
-        
-        self.backgroundColor = .clear
-        collectionView.backgroundColor = .clear
     }
     
     func insert(toView parenetView: UIView) {

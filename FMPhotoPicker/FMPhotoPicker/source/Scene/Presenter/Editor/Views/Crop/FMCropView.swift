@@ -86,12 +86,12 @@ class FMCropView: UIView {
         cropBoxView = FMCropCropBoxView(cropRatio: nil)
         
         foregroundView = FMCropForegroundView(image: image)
-        translucencyView = FMCropTranslucencyView(effect: UIBlurEffect(style: .light))
+        translucencyView = FMCropTranslucencyView(effect: UIBlurEffect(style: .dark))
         
         cornersView = FMCropCropBoxCornersView()
         
         whiteBackgroundView = UIView()
-        whiteBackgroundView.backgroundColor = kBackgroundColor
+        whiteBackgroundView.backgroundColor = .black
         whiteBackgroundView.isUserInteractionEnabled = false
         
         super.init(frame: .zero)
@@ -131,7 +131,7 @@ class FMCropView: UIView {
         addSubview(cropBoxView)
         addSubview(cornersView)
         
-        self.backgroundColor = .white
+        backgroundColor = .black
     }
     
     required init?(coder aDecoder: NSCoder) {

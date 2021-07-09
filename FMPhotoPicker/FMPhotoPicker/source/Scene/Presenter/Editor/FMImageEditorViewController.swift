@@ -11,7 +11,7 @@ import UIKit
 let kContentFrameSpacing: CGFloat = 22.0
 
 // MARK: - Delegate protocol
-public protocol FMImageEditorViewControllerDelegate: class {
+public protocol FMImageEditorViewControllerDelegate: AnyObject {
     func fmImageEditorViewController(_ editor: FMImageEditorViewController, didFinishEdittingPhotoWith photo: UIImage)
 }
 
@@ -117,7 +117,7 @@ public class FMImageEditorViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        view.backgroundColor = kBackgroundColor
+        view.backgroundColor = .black
         
         modalPresentationStyle = .fullScreen
     }
@@ -148,7 +148,7 @@ public class FMImageEditorViewController: UIViewController {
             self.originalThumb = image!
         }
         
-        view.backgroundColor = kBackgroundColor
+        view.backgroundColor = .black
         
         modalPresentationStyle = .fullScreen
     }
@@ -159,7 +159,7 @@ public class FMImageEditorViewController: UIViewController {
     
     public override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         setupView()
     }
     
@@ -197,11 +197,11 @@ public class FMImageEditorViewController: UIViewController {
             self.cropMenuButton.setImage(cropTintIcon, for: .normal)
             
             // default color
-            self.filterMenuButton.setTitleColor(kRedColor, for: .normal)
-            self.filterMenuButton.tintColor = kRedColor
+            self.filterMenuButton.setTitleColor(.white, for: .normal)
+            self.filterMenuButton.tintColor = .white
             
-            self.cropMenuButton.setTitleColor(kBlackColor, for: .normal)
-            self.cropMenuButton.tintColor = kBlackColor
+            self.cropMenuButton.setTitleColor(.white, for: .normal)
+            self.cropMenuButton.tintColor = .white
             
             // get full size original image without any crop or filter applied
             self.fmPhotoAsset.requestFullSizePhoto(cropState: .original, filterState: .original) { [weak self] image in
@@ -221,17 +221,17 @@ public class FMImageEditorViewController: UIViewController {
         }
         
         // set buttons title
-        cancelButton.setTitle(config.strings["editor_button_cancel"], for: .normal)
-        cancelButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: config.titleFontSize)
+        cancelButton.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
+        cancelButton.titleLabel?.font = .systemFont(ofSize: 14)
         
-        doneButton.setTitle(config.strings["editor_button_done"], for: .normal)
-        doneButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: config.titleFontSize)
+        doneButton.setTitle(NSLocalizedString("Done", comment: ""), for: .normal)
+        doneButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         
-        filterMenuButton.setTitle(config.strings["editor_menu_filter"], for: .normal)
-        filterMenuButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: config.titleFontSize)
+        filterMenuButton.setTitle(NSLocalizedString("Filter", comment: ""), for: .normal)
+        filterMenuButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         
-        cropMenuButton.setTitle(config.strings["editor_menu_crop"], for: .normal)
-        cropMenuButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: config.titleFontSize)
+        cropMenuButton.setTitle(NSLocalizedString("Crop", comment: ""), for: .normal)
+        cropMenuButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         
         filterMenuButton.isHidden = config.availableFilters == nil
         cropMenuButton.isHidden = config.availableCrops == nil
@@ -351,10 +351,10 @@ public class FMImageEditorViewController: UIViewController {
     }
     
     private func openFiltersMenu() {
-        filterMenuButton.tintColor = kRedColor
-        filterMenuButton.setTitleColor(kRedColor, for: .normal)
-        cropMenuButton.tintColor = kBlackColor
-        cropMenuButton.setTitleColor(kBlackColor, for: .normal)
+        filterMenuButton.tintColor = .white
+        filterMenuButton.setTitleColor(.white, for: .normal)
+        cropMenuButton.tintColor = .gray
+        cropMenuButton.setTitleColor(.gray, for: .normal)
         
         showAnimatedFilterMenu()
         
@@ -369,10 +369,10 @@ public class FMImageEditorViewController: UIViewController {
     }
     
     private func openCropsMenu() {
-        cropMenuButton.tintColor = kRedColor
-        cropMenuButton.setTitleColor(kRedColor, for: .normal)
-        filterMenuButton.tintColor = kBlackColor
-        filterMenuButton.setTitleColor(kBlackColor, for: .normal)
+        cropMenuButton.tintColor = .white
+        cropMenuButton.setTitleColor(.white, for: .normal)
+        filterMenuButton.tintColor = .gray
+        filterMenuButton.setTitleColor(.gray, for: .normal)
         
         showAnimatedCropMenu()
         
@@ -501,7 +501,7 @@ private extension FMImageEditorViewController {
     func setupView() {
         let headerView = UIView()
         self.headerView = headerView
-        headerView.backgroundColor = .white
+        headerView.backgroundColor = .black
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerView)
@@ -511,19 +511,7 @@ private extension FMImageEditorViewController {
             headerView.leftAnchor.constraint(equalTo: view.leftAnchor),
             headerView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
-        
-        let headerSeparator = UIView()
-        headerSeparator.backgroundColor = kBorderColor
-        
-        headerSeparator.translatesAutoresizingMaskIntoConstraints = false
-        headerView.addSubview(headerSeparator)
-        NSLayoutConstraint.activate([
-            headerSeparator.leftAnchor.constraint(equalTo: headerView.leftAnchor),
-            headerSeparator.rightAnchor.constraint(equalTo: headerView.rightAnchor),
-            headerSeparator.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
-            headerSeparator.heightAnchor.constraint(equalToConstant: 1),
-        ])
-        
+
         let menuContainer = UIView()
         
         menuContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -539,7 +527,7 @@ private extension FMImageEditorViewController {
         
         let cancelButton = UIButton(type: .custom)
         self.cancelButton = cancelButton
-        cancelButton.setTitleColor(kBlackColor, for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
         cancelButton.addTarget(self, action: #selector(onTapCancel(_:)), for: .touchUpInside)
         
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -551,7 +539,7 @@ private extension FMImageEditorViewController {
         
         let doneButton = UIButton(type: .custom)
         self.doneButton = doneButton
-        doneButton.setTitleColor(kBlackColor, for: .normal)
+        doneButton.setTitleColor(.white, for: .normal)
         doneButton.addTarget(self, action: #selector(onTapDone(_:)), for: .touchUpInside)
         
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -564,7 +552,7 @@ private extension FMImageEditorViewController {
         
         let bottomViewContainer = UIView()
         self.bottomViewContainer = bottomViewContainer
-        bottomViewContainer.backgroundColor = .white
+        bottomViewContainer.backgroundColor = .black
         
         bottomViewContainer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomViewContainer)
@@ -603,17 +591,12 @@ private extension FMImageEditorViewController {
         
         cropMenuButton.translatesAutoresizingMaskIntoConstraints = false
         
-        if config.useCropFirst {
-            bottomMenuContainer.addArrangedSubview(cropMenuButton)
-            bottomMenuContainer.addArrangedSubview(filterMenuButton)
-        } else {
-            bottomMenuContainer.addArrangedSubview(filterMenuButton)
-            bottomMenuContainer.addArrangedSubview(cropMenuButton)            
-        }
-        
+        bottomMenuContainer.addArrangedSubview(filterMenuButton)
+        bottomMenuContainer.addArrangedSubview(cropMenuButton)
+
         let subMenuContainer = UIView()
         self.subMenuContainer = subMenuContainer
-        subMenuContainer.backgroundColor = .white
+        subMenuContainer.backgroundColor = .black
         
         subMenuContainer.translatesAutoresizingMaskIntoConstraints = false
         bottomViewContainer.addSubview(subMenuContainer)
@@ -623,18 +606,6 @@ private extension FMImageEditorViewController {
             subMenuContainer.rightAnchor.constraint(equalTo: bottomViewContainer.rightAnchor),
             subMenuContainer.bottomAnchor.constraint(equalTo: bottomMenuContainer.topAnchor),
             subMenuContainer.heightAnchor.constraint(equalToConstant: 64)
-        ])
-        
-        let subMenuSeparator = UIView()
-        subMenuSeparator.backgroundColor = kBorderColor
-        
-        subMenuSeparator.translatesAutoresizingMaskIntoConstraints = false
-        subMenuContainer.addSubview(subMenuSeparator)
-        NSLayoutConstraint.activate([
-            subMenuSeparator.leftAnchor.constraint(equalTo: subMenuContainer.leftAnchor),
-            subMenuSeparator.rightAnchor.constraint(equalTo: subMenuContainer.rightAnchor),
-            subMenuSeparator.topAnchor.constraint(equalTo: subMenuContainer.topAnchor),
-            subMenuSeparator.heightAnchor.constraint(equalToConstant: 1),
         ])
     }
 }
