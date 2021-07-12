@@ -6,7 +6,7 @@ let package = Package(
     name: "FMPhotoPicker",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v9)
+        .iOS(.v13)
     ],
     products: [
         .library(
