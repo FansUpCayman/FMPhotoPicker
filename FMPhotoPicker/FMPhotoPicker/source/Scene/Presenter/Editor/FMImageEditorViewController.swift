@@ -33,7 +33,7 @@ public class FMImageEditorViewController: UIViewController {
     private weak var bottomMenuContainerBottomConstraint: NSLayoutConstraint!
     
     public var didEndEditting: (@escaping () -> Void) -> Void = { _ in }
-    public var delegate: FMImageEditorViewControllerDelegate?
+    public weak var delegate: FMImageEditorViewControllerDelegate?
     
     private let isAnimatedPresent: Bool
     
